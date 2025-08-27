@@ -10,6 +10,7 @@ const Navbar = () => {
             className="flex items-center space-x-2 rtl:space-x-reverse"
           >
             {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" /> */}
+            <img src="/WITS_LOGO.png" className="h-8" alt="WITS Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               FEBE R&I Portal
             </span>

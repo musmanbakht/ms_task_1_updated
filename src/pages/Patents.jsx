@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import PatentsTable from "../components/Tables.jsx/PatentsTable";
 
 const Patents = () => {
   return (
-    <div>Patents</div>
-  )
-}
+    <>
+      <PatentsTable />
+    </>
+  );
+};
 
-export default Patents
+export default Patents;

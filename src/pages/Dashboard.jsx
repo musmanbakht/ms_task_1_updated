@@ -45,7 +45,7 @@ const Dashboard = () => {
           publicationCount={dashboardData.publicationCount}
           leadingSchool={dashboardData.leadingSchool}
         /> */}
-        <div className="mx-8 my-4">
+        <div className="p-4">
           <DashboardMap onSchoolSelect={(name) => setHighlightSchool(name)} />
           <div className="flex flex-wrap">
             <div className="w-full xl:w-8/12 mb-12 xl:mb-0 pl-4">
