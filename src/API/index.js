@@ -13,7 +13,7 @@ async function fetchDepartments() {
 }
 async function dashboardStats(year) {
   try {
-        const params = new URLSearchParams({
+    const params = new URLSearchParams({
       ...(year && { year: year.toString() }),
     });
     const response = await axios.get(`${BASE_URL}/dashboard?${params}`);
@@ -54,4 +54,20 @@ async function getAllPatents(q, page, limit) {
   }
 }
 
-export { fetchDepartments, dashboardStats, getAllStaff , getAllPatents};
+async function getPatentsStats() {
+  try {
+    const response = await axios.get(`${BASE_URL}/patent/stats`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching staff:", error);
+    throw error;
+  }
+}
+
+export {
+  fetchDepartments,
+  dashboardStats,
+  getAllStaff,
+  getAllPatents,
+  getPatentsStats,
+};

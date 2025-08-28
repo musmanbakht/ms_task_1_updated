@@ -72,7 +72,7 @@ export default function PatentsTable() {
   return (
     <>
       <div>
-        <div className="flex flex-col h-full bg-gray-100 overflow-hidden">
+        <div className="flex flex-col overflow-hidden h-full">
           {/* <main className="container min-w-full mx-auto flex-grow px-6 py-8"> */}
           <main className="w-full flex-grow px-8 py-8">
             <div className="bg-white shadow-lg rounded-lg p-8">
@@ -114,7 +114,7 @@ export default function PatentsTable() {
                     Loading...
                   </div>
                 ) : patents.length > 0 ? (
-                  <table className="w-full border-collapse min-w-[1000px]">
+                  <table className="w-full border-collapse min-w-[1000px]  text-sm">
                     <thead>
                       <tr className="border-b bg-gray-50">
                         <th className="px-4 py-2">

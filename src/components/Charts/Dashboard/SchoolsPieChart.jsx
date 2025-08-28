@@ -63,6 +63,9 @@ export default function SchoolsPieChart({ data, totalPublications }) {
                 cy="50%"
                 outerRadius="80%"
                 label={(entry) => `${entry.percentage}%`}
+                animationBegin={200}
+                animationDuration={1000}
+                animationEasing="ease-out"
               >
                 {chartData.map((entry, index) => (
                   <Cell key={entry.name} fill={colors[index % colors.length]} />

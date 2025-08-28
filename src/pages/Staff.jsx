@@ -84,7 +84,7 @@ export default function StaffManagement() {
     <>
       <div>
         {/* <AdminNavbar /> */}
-        <div className="flex flex-col h-full bg-gray-100 overflow-hidden py-16">
+        <div className="flex flex-col h-full bg-blueGray-500 overflow-hidden py-8">
           <main className="container min-w-full mx-auto flex-grow px-6 py-8">
             <div className="bg-white shadow-lg rounded-lg p-8">
               <div className="p-4">

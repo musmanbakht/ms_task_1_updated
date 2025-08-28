@@ -21,19 +21,16 @@ const colors = [
   "#ffb703", // yellow-orange
 ];
 
-export default function PublicationBarChart({
-  allDepartments,
-  highlightDepartment = "School of Mining Engineering",
-}) {
-  console.log("IN PUB BAR CHART", allDepartments);
+export default function PatentsBarChart({ allPatents, highlightDepartment }) {
+  console.log("IN PUB BAR CHART", allPatents);
 
   // Transform API → recharts data format
   const chartData = useMemo(() => {
-    return allDepartments.map((dept) => ({
-      name: dept.abbreviation,
-      publicationCount: dept.publicationCount,
+    return allPatents.map((dept) => ({
+      name: dept.school.name,
+      patentCount: dept.patentCount,
     }));
-  }, [allDepartments]);
+  }, [allPatents]);
   console.log("CHART DATA", chartData);
 
   return (
@@ -45,7 +42,7 @@ export default function PublicationBarChart({
               Overview
             </h6>
             <h2 className="text-gray-800 text-xl font-semibold">
-              Publications by School
+              Patents by School
             </h2>
           </div>
         </div>
@@ -71,7 +68,7 @@ export default function PublicationBarChart({
 
               {/* ✅ Only one Bar, assign colors per department */}
               <Bar
-                dataKey="publicationCount"
+                dataKey="patentCount"
                 barSize={30}
                 isAnimationActive={true}
                 animationBegin={300}

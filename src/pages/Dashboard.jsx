@@ -7,6 +7,7 @@ import PublicationLineChart from "../components/Charts/Dashboard/PublicationLine
 import SchoolsPieChart from "../components/Charts/Dashboard/SchoolsPieChart";
 // import MapDashboard from "../components/Maps/MapDashboard";
 import DashboardMap from "../components/Maps/DashboardMap";
+import PublicationsWordChart from "../components/Charts/Dashboard/PublicationsWordChart";
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +35,7 @@ const Dashboard = () => {
     };
     getDashboardData();
   }, []);
-
+  console.log("IN DASH", dashboardData.publicationWordCounts);
   return (
     <>
       {/* <div className="relative md:ml-64 bg-blueGray-100 p-8"> */}
@@ -77,14 +78,15 @@ const Dashboard = () => {
                 />
               )}
             </div>
-            {/* <div className="w-full xl:w-8/12 px-4">
+            <div className="w-full xl:w-8/12 px-4">
               {!loading && departmentData && (
-                <PublicationsBarChart
-                  allDepartments={departmentData}
-                  highlightDepartment="School of Mining Engineering"
+                <PublicationsWordChart
+                  data={
+                    dashboardData ? dashboardData.publicationWordCounts : []
+                  }
                 />
               )}
-            </div> */}
+            </div>
           </div>
         </div>
 

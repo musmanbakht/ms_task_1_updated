@@ -1,17 +1,16 @@
 import React from "react";
-import { Outlet } from "react-router-dom"; 
+import { Outlet } from "react-router-dom";
 // import Sidebar from "../components/Sidebar/Sidebar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
 export default function LayoutWithSidebar() {
   return (
-    <div >
+    <div>
       <Sidebar />
-      <div className="relative md:ml-64 bg-blueGray-100">
-        <Navbar/>
-        <div >
-
-        <Outlet /> {/* This will render nested routes */}
+      <div className="relative md:ml-64 bg-amber-800 h-full">
+        <Navbar />
+        <div>
+          <Outlet /> {/* This will render nested routes */}
         </div>
       </div>
     </div>
