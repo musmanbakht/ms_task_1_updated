@@ -35,7 +35,7 @@ const Dashboard = () => {
     };
     getDashboardData();
   }, []);
-  console.log("IN DASH", dashboardData.publicationWordCounts);
+  console.log("IN DASH", ">>>>>>>>>>>>", highlightSchool);
   return (
     <>
       {/* <div className="relative md:ml-64 bg-blueGray-100 p-8"> */}

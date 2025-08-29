@@ -93,7 +93,7 @@ const PublicationsWordChart = ({
       function getTextDimensions(text, fontSize) {
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
-        context.font = `bold ${fontSize}px Arial Black, sans-serif`;
+        context.font = `bold ${fontSize}px Impact, Arial Black, sans-serif`;
         const metrics = context.measureText(text);
         return {
           width: metrics.width + 10, // Add some padding
@@ -312,7 +312,7 @@ const PublicationsWordChart = ({
       .attr("x", (d) => d.x)
       .attr("y", (d) => d.y)
       .style("font-size", (d) => `${d.fontSize}px`)
-      .style("font-family", "Arial Black, sans-serif")
+      .style("font-family", "Impact, Arial Black, sans-serif")
       .style("font-weight", "bold")
       .style("fill", (d) => colorScale(d.text))
       .style("cursor", "pointer")

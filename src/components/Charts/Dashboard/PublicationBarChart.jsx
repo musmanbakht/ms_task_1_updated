@@ -25,7 +25,7 @@ export default function PublicationBarChart({
   allDepartments,
   highlightDepartment = "School of Mining Engineering",
 }) {
-  console.log("IN PUB BAR CHART", allDepartments);
+  console.log("IN PUB BAR CHART", highlightDepartment);
 
   // Transform API → recharts data format
   const chartData = useMemo(() => {
@@ -79,7 +79,8 @@ export default function PublicationBarChart({
                 animationEasing="ease-out"
               >
                 {chartData.map((dept, index) => {
-                  const isHighlighted = dept.name === highlightDepartment;
+                  console.log("HIGHLI", dept.name, highlightDepartment);
+                  const isHighlighted = dept.name == highlightDepartment;
                   return (
                     <Cell
                       key={dept.name}
@@ -88,7 +89,7 @@ export default function PublicationBarChart({
                       // stroke={
                       //   isHighlighted ? colors[index % colors.length] : "none"
                       // }
-                      stroke={isHighlighted ? "#005f73" : "none"}
+                      stroke={isHighlighted ? "#ffffff" : "none"}
                       strokeWidth={isHighlighted ? 3 : 0}
                       opacity={isHighlighted ? 1 : 0.7}
                     />

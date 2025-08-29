@@ -87,7 +87,7 @@ function DashboardMap({ onSchoolSelect }) {
               <CircleMarker
                 key={school.id}
                 center={[school.lat, school.long]}
-                radius={getRadius(school.publicationCount)}
+                // radius={getRadius(school.publicationCount)}
                 pathOptions={{
                   color: getColor(school.publicationCount),
                   fillColor: getColor(school.publicationCount),
@@ -97,7 +97,7 @@ function DashboardMap({ onSchoolSelect }) {
                   click: () => {
                     setSelected({ lat: school.lat, long: school.long });
                     if (onSchoolSelect) {
-                      onSchoolSelect(school.name); // ✅ send selected department name
+                      onSchoolSelect(school.abbreviation); // ✅ send selected department name
                     }
                   },
                 }}

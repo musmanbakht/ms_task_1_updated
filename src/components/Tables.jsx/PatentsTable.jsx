@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getAllPatents } from "../../API/index"; // <- your API function
 import { LuPencil } from "react-icons/lu";
 import { IoTrashOutline } from "react-icons/io5";
+import DeleteModal from "../Modals/DeleteModal";
 
 export default function PatentsTable() {
   const [patents, setPatents] = useState([]);
@@ -24,6 +25,7 @@ export default function PatentsTable() {
     totalPages: 1,
     page: 1,
   });
+  const [selectedPatentId, setSelectedPatentId] = useState(null);
 
   useEffect(() => {
     fetchPatents();
@@ -74,7 +76,7 @@ export default function PatentsTable() {
       <div>
         <div className="flex flex-col overflow-hidden h-full">
           {/* <main className="container min-w-full mx-auto flex-grow px-6 py-8"> */}
-          <main className="w-full flex-grow px-8 py-8">
+          <main className="w-full flex-grow px-8 py-1">
             <div className="bg-white shadow-lg rounded-lg p-8">
               {/* Header */}
               <div className="flex sm:flex-row justify-between sm:items-center mb-6 gap-4">
@@ -172,7 +174,10 @@ export default function PatentsTable() {
 
                               <button
                                 className="text-gray-500 hover:text-red-600"
-                                onClick={() => setDeleteModalOpen(true)}
+                                onClick={() => {
+                                  setSelectedPatentId(p.id);
+                                  setDeleteModalOpen(true);
+                                }}
                               >
                                 <IoTrashOutline />
                               </button>
@@ -246,6 +251,11 @@ export default function PatentsTable() {
                   </div>
                 </div>
               )}
+              <DeleteModal
+                isOpen={deleteModalOpen}
+                onClose={() => setDeleteModalOpen(false)}
+                onDelete={() => deletePatent(selectedPatentId)}
+              />
               {/* {patents.length > 0 && (
                 <div className="flex justify-end items-center gap-4 mt-5">
                   <div className="flex items-center gap-2">
