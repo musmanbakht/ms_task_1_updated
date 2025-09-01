@@ -64,7 +64,7 @@ export default function PublicationBarChart({
                 textAnchor="end"
                 interval={0}
                 height={20}
-                tickFormatter={(value) => value.split(" ")[0]} // ✅ only first word
+                // tickFormatter={(value) => value.split(" ")[0]} // ✅ only first word
               />
               <YAxis />
               <Tooltip />

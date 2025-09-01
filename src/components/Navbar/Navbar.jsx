@@ -39,7 +39,7 @@ const Navbar = () => {
               />
             </svg>
           </button>
-          <div
+          {/* <div
             className="hidden w-full md:block md:w-auto"
             id="navbar-solid-bg"
           >
@@ -78,7 +78,7 @@ const Navbar = () => {
                 </a>
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
       </nav>
     </>

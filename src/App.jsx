@@ -16,7 +16,7 @@ function App() {
 
         {/* Uncomment and organize routes under layout if needed */}
         <Route element={<LayoutWithSidebar />}>
-        <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/publications" element={<Dashboard />} />
           <Route path="/staff" element={<Staff />} />
           <Route path="/patents" element={<Patents />} />
         </Route>

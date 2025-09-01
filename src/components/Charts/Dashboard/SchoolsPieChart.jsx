@@ -33,7 +33,7 @@ export default function SchoolsPieChart({ data, totalPublications }) {
         ),
       }));
   }, [data, totalPublications]);
-
+  console.log("IN PIE CHART", data, totalPublications);
   return (
     <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
       {/* Header */}

@@ -21,11 +21,24 @@ function RecenterMap({ lat, long }) {
   return null;
 }
 
-function DashboardMap({ onSchoolSelect }) {
+function DashboardMap({ onSchoolSelect, selectedYear, onYearChange }) {
   const [schools, setSchools] = useState([]);
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(true);
+  const minCount = Math.min(...schools.map((s) => s.publicationCount || 0));
+  const maxCount = Math.max(...schools.map((s) => s.publicationCount || 0));
 
+  const lastFiveYears = Array.from(
+    { length: 5 },
+    (_, i) => new Date().getFullYear() - i
+  );
+
+  // const handleYearChange = (e) => {
+  //   const value = e.target.value;
+  //   const year = value ? Number(value) : null;
+  //   setLocalYear(year); // update local state for UI
+  //   if (onYearChange) onYearChange(year); // notify Dashboard
+  // };
   useEffect(() => {
     const loadDepartments = async () => {
       try {
@@ -40,23 +53,24 @@ function DashboardMap({ onSchoolSelect }) {
     loadDepartments();
   }, []);
 
-  // Function to scale circle size based on publications
-  const getRadius = (count) => {
-    if (!count) return 3;
-    return Math.min(25, 3 + count * 0.7);
-  };
-
-  // const getRadius = (count) => {
-  //   if (!count) return 5;
-  //   return Math.min(40, 5 + count * 2); // capped to avoid too huge circles
-  // };
-
   // Function to set circle color
   const getColor = (count) => {
     if (count < 15) return "#e41a1c"; // red (low)
     if (count <= 20) return "#ff7f00"; // orange (medium)
     return "#4daf4a"; // green (high)
   };
+  function getDynamicColor(count, min, max) {
+    if (max === min) return "#a6bddb"; // edge case: all same
+    const mid = (min + max) / 2;
+
+    if (count <= mid) {
+      return "#c59ca4ff"; // low
+    } else if (count < max) {
+      return "#a48d9eff"; // medium
+    } else {
+      return "#606d94ff"; // high
+    }
+  }
 
   return (
     <div className="p-4">
@@ -82,16 +96,44 @@ function DashboardMap({ onSchoolSelect }) {
               attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-
+            {/* <TileLayer
+              url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              minZoom={0}
+              maxZoom={20}
+            /> */}
+            {/* Custom select overlay */}
+            <div className="absolute top-2 right-2 z-999 bg-white rounded shadow">
+              <select
+                value={selectedYear}
+                onChange={(e) => onYearChange(Number(e.target.value))}
+                className="w-full bg-white border border-gray-300 rounded px-3 py-2 shadow-sm focus:outline-none focus:border-gray-400"
+              >
+                <option value="">Select Year</option> {/* default option */}
+                {lastFiveYears.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+            </div>
             {schools.map((school) => (
               <CircleMarker
                 key={school.id}
                 center={[school.lat, school.long]}
                 // radius={getRadius(school.publicationCount)}
                 pathOptions={{
-                  color: getColor(school.publicationCount),
-                  fillColor: getColor(school.publicationCount),
-                  fillOpacity: 0.8,
+                  color: getDynamicColor(
+                    school.publicationCount,
+                    minCount,
+                    maxCount
+                  ),
+                  fillColor: getDynamicColor(
+                    school.publicationCount,
+                    minCount,
+                    maxCount
+                  ),
+                  fillOpacity: 1,
                 }}
                 eventHandlers={{
                   click: () => {
@@ -114,7 +156,7 @@ function DashboardMap({ onSchoolSelect }) {
             {selected && (
               <RecenterMap lat={selected.lat} long={selected.long} />
             )}
-            <Legend />
+            <Legend min={minCount} max={maxCount} />
           </MapContainer>
         )}
       </div>

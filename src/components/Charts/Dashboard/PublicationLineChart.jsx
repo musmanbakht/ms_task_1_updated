@@ -26,22 +26,27 @@ const colors = [
 export default function PublicationLineChart({ publicationCountPerMonth }) {
   const [selectedDept, setSelectedDept] = useState("all");
   const [range, setRange] = useState(null); // store brush range
+  const [lineType, setLineType] = useState("published"); // "published", "submission", "both"
+
   console.log("PUB LINE CAHRT", publicationCountPerMonth);
   // Transform API response → chart format
   const chartData = useMemo(() => {
     const grouped = {};
     publicationCountPerMonth.forEach((item) => {
       const month = item.month.slice(0, 7); // YYYY-MM
-      if (!grouped[month]) {
-        grouped[month] = { month };
-      }
-      grouped[month][item.name] = Number(item.publicationCount);
+      if (!grouped[month]) grouped[month] = { month };
+
+      grouped[month][`${item.schoolAbbreviation}-submission`] = Number(
+        item.submissionCount
+      );
+      grouped[month][`${item.schoolAbbreviation}-published`] = Number(
+        item.publishedCount
+      );
     });
     return Object.values(grouped);
   }, [publicationCountPerMonth]);
-
   const departments = [
-    ...new Set(publicationCountPerMonth.map((item) => item.name)),
+    ...new Set(publicationCountPerMonth.map((item) => item.schoolAbbreviation)),
   ];
 
   // --- Linear regression function ---
@@ -73,8 +78,15 @@ export default function PublicationLineChart({ publicationCountPerMonth }) {
       ? chartData.slice(range.startIndex, range.endIndex + 1)
       : chartData;
 
-  const trendData =
-    selectedDept !== "all" ? computeTrendline(visibleData, selectedDept) : null;
+  // const trendData =
+  //   selectedDept !== "all" ? computeTrendline(visibleData, selectedDept) : null;
+  let trendData = null;
+  if (
+    selectedDept !== "all" &&
+    (lineType === "published" || lineType === "both")
+  ) {
+    trendData = computeTrendline(visibleData, `${selectedDept}-published`);
+  }
 
   return (
     <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
@@ -89,7 +101,34 @@ export default function PublicationLineChart({ publicationCountPerMonth }) {
           </h2>
         </div>
 
-        {/* Department selector */}
+        {/* Lines selector */}
+        <div className=" max-w-sm min-w-[100px] ml-2">
+          <div className="relative">
+            <select
+              value={lineType}
+              onChange={(e) => setLineType(e.target.value)}
+              className=" bg-transparent text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 shadow-sm focus:outline-none focus:border-slate-400 hover:border-slate-400 appearance-none cursor-pointer"
+            >
+              <option value="published">Published</option>
+              <option value="submission">Submission</option>
+              <option value="both">Both</option>
+            </select>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.2"
+              stroke="currentColor"
+              className="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700 pointer-events-none"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+              />
+            </svg>
+          </div>
+        </div>
         {/* Department selector */}
         <div className="w-full max-w-sm min-w-[200px]">
           <div className="relative">
@@ -121,21 +160,6 @@ export default function PublicationLineChart({ publicationCountPerMonth }) {
             </svg>
           </div>
         </div>
-
-        {/* <Select.Root value={selectedDept} onValueChange={setSelectedDept}>
-          <Select.Trigger
-            placeholder="Select school…"
-            className="inline-flex h-[35px] items-center justify-center gap-[5px] rounded bg-white px-[15px] text-[13px] leading-none text-violet11 shadow-[0_2px_10px] shadow-black/10 outline-none hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-violet9"
-          />
-          <Select.Content>
-            <Select.Item value="all">All Schools</Select.Item>
-            {departments.map((dept) => (
-              <Select.Item key={dept} value={dept}>
-                {dept}
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Root> */}
       </div>
 
       {/* Chart */}
@@ -155,20 +179,40 @@ export default function PublicationLineChart({ publicationCountPerMonth }) {
               />
 
               {departments.map((dept, index) => {
-                if (selectedDept !== "all" && selectedDept !== dept) {
+                if (selectedDept !== "all" && selectedDept !== dept)
                   return null;
+
+                const lines = [];
+                if (lineType === "published" || lineType === "both") {
+                  lines.push(
+                    <Line
+                      key={`${dept}-published`}
+                      type="monotone"
+                      dataKey={`${dept}-published`}
+                      name={`${dept} Published`}
+                      stroke={colors[index % colors.length]}
+                      strokeWidth={selectedDept === dept ? 4 : 2}
+                      dot={selectedDept === dept ? { r: 5 } : { r: 1 }}
+                    />
+                  );
                 }
-                return (
-                  <Line
-                    key={dept}
-                    type="monotone"
-                    dataKey={dept}
-                    name={dept}
-                    strokeWidth={selectedDept === dept ? 4 : 2}
-                    dot={selectedDept === dept ? { r: 5 } : { r: 1 }}
-                    stroke={colors[index % colors.length]}
-                  />
-                );
+
+                if (lineType === "submission" || lineType === "both") {
+                  lines.push(
+                    <Line
+                      key={`${dept}-submission`}
+                      type="monotone"
+                      dataKey={`${dept}-submission`}
+                      name={`${dept} Submission`}
+                      stroke={colors[(index + 1) % colors.length]}
+                      strokeDasharray="5 5"
+                      strokeWidth={selectedDept === dept ? 4 : 2}
+                      dot={selectedDept === dept ? { r: 5 } : { r: 1 }}
+                    />
+                  );
+                }
+
+                return lines;
               })}
 
               {/* Trendline (only for single dept) */}

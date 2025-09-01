@@ -1,39 +1,39 @@
 import React from "react";
 
 const LoginModal = () => {
-  <div class="bg-gray-50">
-    <div class="min-h-screen flex flex-col items-center justify-center py-6 px-4">
-      <div class="max-w-[480px] w-full">
+  <div className="bg-gray-50">
+    <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
+      <div className="max-w-[480px] w-full">
         <a href="javascript:void(0)">
           <img
             src="https://readymadeui.com/readymadeui.svg"
             alt="logo"
-            class="w-40 mb-8 mx-auto block"
+            className="w-40 mb-8 mx-auto block"
           />
         </a>
 
-        <div class="p-6 sm:p-8 rounded-2xl bg-white border border-gray-200 shadow-sm">
-          <h1 class="text-slate-900 text-center text-3xl font-semibold">
+        <div className="p-6 sm:p-8 rounded-2xl bg-white border border-gray-200 shadow-sm">
+          <h1 className="text-slate-900 text-center text-3xl font-semibold">
             Sign in
           </h1>
-          <form class="mt-12 space-y-6">
+          <form className="mt-12 space-y-6">
             <div>
-              <label class="text-slate-900 text-sm font-medium mb-2 block">
+              <label className="text-slate-900 text-sm font-medium mb-2 block">
                 User name
               </label>
-              <div class="relative flex items-center">
+              <div className="relative flex items-center">
                 <input
                   name="username"
                   type="text"
                   required
-                  class="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
+                  className="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
                   placeholder="Enter user name"
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="#bbb"
                   stroke="#bbb"
-                  class="w-4 h-4 absolute right-4"
+                  className="w-4 h-4 absolute right-4"
                   viewBox="0 0 24 24"
                 >
                   <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
@@ -45,22 +45,22 @@ const LoginModal = () => {
               </div>
             </div>
             <div>
-              <label class="text-slate-900 text-sm font-medium mb-2 block">
+              <label className="text-slate-900 text-sm font-medium mb-2 block">
                 Password
               </label>
-              <div class="relative flex items-center">
+              <div className="relative flex items-center">
                 <input
                   name="password"
                   type="password"
                   required
-                  class="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
+                  className="w-full text-slate-900 text-sm border border-slate-300 px-4 py-3 pr-8 rounded-md outline-blue-600"
                   placeholder="Enter password"
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="#bbb"
                   stroke="#bbb"
-                  class="w-4 h-4 absolute right-4 cursor-pointer"
+                  className="w-4 h-4 absolute right-4 cursor-pointer"
                   viewBox="0 0 128 128"
                 >
                   <path
@@ -70,44 +70,44 @@ const LoginModal = () => {
                 </svg>
               </div>
             </div>
-            <div class="flex flex-wrap items-center justify-between gap-4">
-              <div class="flex items-center">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center">
                 <input
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
+                  className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
                 />
                 <label
                   for="remember-me"
-                  class="ml-3 block text-sm text-slate-900"
+                  className="ml-3 block text-sm text-slate-900"
                 >
                   Remember me
                 </label>
               </div>
-              <div class="text-sm">
+              <div className="text-sm">
                 <a
                   href="jajvascript:void(0);"
-                  class="text-blue-600 hover:underline font-semibold"
+                  className="text-blue-600 hover:underline font-semibold"
                 >
                   Forgot your password?
                 </a>
               </div>
             </div>
 
-            <div class="!mt-12">
+            <div className="!mt-12">
               <button
                 type="button"
-                class="w-full py-2 px-4 text-[15px] font-medium tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none cursor-pointer"
+                className="w-full py-2 px-4 text-[15px] font-medium tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none cursor-pointer"
               >
                 Sign in
               </button>
             </div>
-            <p class="text-slate-900 text-sm !mt-6 text-center">
+            <p className="text-slate-900 text-sm !mt-6 text-center">
               Don't have an account?{" "}
               <a
                 href="javascript:void(0);"
-                class="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"
+                className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"
               >
                 Register here
               </a>

@@ -7,7 +7,7 @@ export default function LayoutWithSidebar() {
   return (
     <div>
       <Sidebar />
-      <div className="relative md:ml-64 bg-amber-800 h-full">
+      <div className="relative md:ml-64 h-full">
         <Navbar />
         <div className="p-4">
           <Outlet /> {/* This will render nested routes */}

@@ -13,13 +13,14 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [departmentData, setDepartmentData] = useState([]);
   const [highlightSchool, setHighlightSchool] = useState(null); // ✅ new state
+  const [selectedYear, setSelectedYear] = useState(null); // ✅
 
   // API CALL FOR DHASHBOARD
   useEffect(() => {
     const getDashboardData = async (year) => {
       try {
         setLoading(true);
-        year = new Date().getFullYear();
+        // year = new Date().getFullYear();
         // const response = await dashboardStats();
         const [res1, res2] = await Promise.all([
           dashboardStats(year),
@@ -33,21 +34,18 @@ const Dashboard = () => {
         setLoading(false);
       }
     };
-    getDashboardData();
-  }, []);
-  console.log("IN DASH", ">>>>>>>>>>>>", highlightSchool);
+    getDashboardData(selectedYear);
+  }, [selectedYear]);
+  console.log("IN DASH", ">>>>>>>>>>>>", selectedYear);
   return (
     <>
-      {/* <div className="relative md:ml-64 bg-blueGray-100 p-8"> */}
       <div>
-        {/* <HeaderStats
-          facultyCount={dashboardData.facultyCount || 0}
-          departmentCount={dashboardData.schoolCount}
-          publicationCount={dashboardData.publicationCount}
-          leadingSchool={dashboardData.leadingSchool}
-        /> */}
         <div className="p-4">
-          <DashboardMap onSchoolSelect={(name) => setHighlightSchool(name)} />
+          <DashboardMap
+            onSchoolSelect={(name) => setHighlightSchool(name)}
+            selectedYear={selectedYear}
+            onYearChange={(year) => setSelectedYear(year)}
+          />
           <div className="flex flex-wrap">
             <div className="w-full xl:w-8/12 mb-12 xl:mb-0 pl-4">
               {!loading && (
