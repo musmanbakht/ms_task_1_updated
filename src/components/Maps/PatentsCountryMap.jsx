@@ -25,19 +25,21 @@ function PatentsCountryMap({ data }) {
   // Color scale
   const getColor = (count) => {
     if (!count) return "#ccc"; // grey for no data
-    if (count < 15) return "#e41a1c"; // red
-    if (count <= 20) return "#ff7f00"; // orange
+    if (count < 10) return "#e41a1c"; // red
+    if (count <= 15) return "#ff7f00"; // orange
     return "#4daf4a"; // green
   };
 
   // Style each country
   const styleCountry = (feature) => {
     const record = data.find((d) => d.country === feature.id); // ISO3 code match
+    const hasData = !!record?.patentCount;
+
     return {
       fillColor: getColor(record?.patentCount),
       weight: 1,
       color: "black",
-      fillOpacity: 0.7,
+      fillOpacity: hasData ? 0.5 : 0,
     };
   };
 

@@ -9,6 +9,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import { fetchDepartments } from "../../API/index"; // axios function
 import Legend from "./Legends/DashboardMapLegend";
+import PublicationHeatmap from "./PublicationHeatmap";
 
 // Recenter map with animation
 function RecenterMap({ lat, long }) {
@@ -21,38 +22,26 @@ function RecenterMap({ lat, long }) {
   return null;
 }
 
-function DashboardMap({ onSchoolSelect, selectedYear, onYearChange }) {
-  const [schools, setSchools] = useState([]);
+function DashboardMap({ schools, onSchoolSelect, selectedYear, onYearChange }) {
+  // const [schools, setSchools] = useState([]);
+  console.log("SCHOOLSSSSSS", schools);
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(true);
-  const minCount = Math.min(...schools.map((s) => s.publicationCount || 0));
-  const maxCount = Math.max(...schools.map((s) => s.publicationCount || 0));
+  const [showHeatmap, setShowHeatmap] = useState(false); // ✅ toggle state
+
+  const minCount =
+    schools && schools.length > 0
+      ? Math.min(...schools.map((s) => s.publicationCount || 0))
+      : 0;
+  const maxCount =
+    schools && schools.length > 0
+      ? Math.max(...schools.map((s) => s.publicationCount || 0))
+      : 0;
 
   const lastFiveYears = Array.from(
     { length: 5 },
     (_, i) => new Date().getFullYear() - i
   );
-
-  // const handleYearChange = (e) => {
-  //   const value = e.target.value;
-  //   const year = value ? Number(value) : null;
-  //   setLocalYear(year); // update local state for UI
-  //   if (onYearChange) onYearChange(year); // notify Dashboard
-  // };
-  useEffect(() => {
-    const loadDepartments = async () => {
-      try {
-        const response = await fetchDepartments();
-        setSchools(response.allSchools || []);
-      } catch (err) {
-        console.error("Failed to fetch departments:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadDepartments();
-  }, []);
-
   // Function to set circle color
   const getColor = (count) => {
     if (count < 15) return "#e41a1c"; // red (low)
@@ -79,7 +68,7 @@ function DashboardMap({ onSchoolSelect, selectedYear, onYearChange }) {
         style={{ width: "100%", height: "500px" }}
       >
         {/* Show shadowed placeholder when loading */}
-        {loading ? (
+        {!schools || schools.length === 0 ? (
           <div className="flex items-center justify-center w-full h-full bg-gray-200 shadow-inner">
             <p className="text-lg font-semibold text-gray-600">
               Loading Schools...
@@ -92,16 +81,17 @@ function DashboardMap({ onSchoolSelect, selectedYear, onYearChange }) {
             scrollWheelZoom={true}
             className="h-full w-full"
           >
-            <TileLayer
+            {/* <TileLayer
               attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {/* <TileLayer
+            /> */}
+            <TileLayer
               url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
               attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               minZoom={0}
               maxZoom={20}
-            /> */}
+            />
+            {showHeatmap && <PublicationHeatmap schools={schools} />}
             {/* Custom select overlay */}
             <div className="absolute top-2 right-2 z-999 bg-white rounded shadow">
               <select
@@ -117,42 +107,53 @@ function DashboardMap({ onSchoolSelect, selectedYear, onYearChange }) {
                 ))}
               </select>
             </div>
-            {schools.map((school) => (
-              <CircleMarker
-                key={school.id}
-                center={[school.lat, school.long]}
-                // radius={getRadius(school.publicationCount)}
-                pathOptions={{
-                  color: getDynamicColor(
-                    school.publicationCount,
-                    minCount,
-                    maxCount
-                  ),
-                  fillColor: getDynamicColor(
-                    school.publicationCount,
-                    minCount,
-                    maxCount
-                  ),
-                  fillOpacity: 1,
-                }}
-                eventHandlers={{
-                  click: () => {
-                    setSelected({ lat: school.lat, long: school.long });
-                    if (onSchoolSelect) {
-                      onSchoolSelect(school.abbreviation); // ✅ send selected department name
-                    }
-                  },
-                }}
-              >
-                <Popup>
-                  <h2 className="font-bold">{school.name}</h2>
-                  <p>Publications: {school.publicationCount}</p>
-                  <p>Faculty Name: {school.faculty.name}</p>
-                  <p>Abbreviation: {school.abbreviation}</p>
-                </Popup>
-              </CircleMarker>
-            ))}
-
+            <button
+              onClick={() => setShowHeatmap((prev) => !prev)}
+              className={`absolute z-999 w-8 h-8 top-20 left-[11px] rounded shadow border text-sm font-bold ${
+                showHeatmap
+                  ? "bg-blue-600 text-white"
+                  : "bg-white text-gray-700"
+              }`}
+              title="Toggle Heatmap"
+            >
+              🔥
+            </button>
+            {!showHeatmap &&
+              schools.map((school) => (
+                <CircleMarker
+                  key={school.id}
+                  center={[school.lat, school.long]}
+                  // radius={getRadius(school.publicationCount)}
+                  pathOptions={{
+                    color: getDynamicColor(
+                      school.publicationCount,
+                      minCount,
+                      maxCount
+                    ),
+                    fillColor: getDynamicColor(
+                      school.publicationCount,
+                      minCount,
+                      maxCount
+                    ),
+                    fillOpacity: 1,
+                  }}
+                  eventHandlers={{
+                    click: () => {
+                      setSelected({ lat: school.lat, long: school.long });
+                      if (onSchoolSelect) {
+                        onSchoolSelect(school.abbreviation); // ✅ send selected department name
+                      }
+                    },
+                  }}
+                >
+                  <Popup>
+                    <h2 className="font-bold">{school.name}</h2>
+                    <p>Publications Approved: {school.publicationCount}</p>
+                    <p>Faculty Name: {school.faculty.name}</p>
+                    <p>Abbreviation: {school.abbreviation}</p>
+                  </Popup>
+                </CircleMarker>
+              ))}
             {selected && (
               <RecenterMap lat={selected.lat} long={selected.long} />
             )}

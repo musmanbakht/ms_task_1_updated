@@ -26,6 +26,7 @@ const Dashboard = () => {
           dashboardStats(year),
           fetchDepartments(),
         ]);
+        console.log("RES !", res1);
         setDashboardData(res1.data || null);
         setDepartmentData(res2.allSchools || []);
       } catch (err) {
@@ -36,12 +37,13 @@ const Dashboard = () => {
     };
     getDashboardData(selectedYear);
   }, [selectedYear]);
-  console.log("IN DASH", ">>>>>>>>>>>>", selectedYear);
+  console.log("IN DASH", ">>>>>>>>>>>>", dashboardData.allSchoolsYearly);
   return (
     <>
       <div>
         <div className="p-4">
           <DashboardMap
+            schools={dashboardData ? dashboardData.allSchoolsYearly : []}
             onSchoolSelect={(name) => setHighlightSchool(name)}
             selectedYear={selectedYear}
             onYearChange={(year) => setSelectedYear(year)}
@@ -71,7 +73,7 @@ const Dashboard = () => {
             <div className="w-[300px] h-[300px] xl:w-4/12 mb-12 xl:mb-0 pl-4">
               {!loading && (
                 <SchoolsPieChart
-                  data={departmentData}
+                  data={dashboardData.allSchoolsYearly}
                   totalPublications={dashboardData.publicationCount || 1}
                 />
               )}

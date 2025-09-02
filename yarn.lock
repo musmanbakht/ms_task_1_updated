@@ -2040,6 +2040,13 @@ react-is@^19.1.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-19.1.1.tgz#038ebe313cf18e1fd1235d51c87360eb87f7c36a"
   integrity sha512-tr41fA15Vn8p4X9ntI+yCyeGSf1TlYaY5vlTZfQmeLBrFo3psOPX6HhTDnFNL9uj3EhP0KAQ80cugCl4b4BERA==
 
+react-leaflet-heatmap-layer-v3@^3.0.3-beta-1:
+  version "3.0.3-beta-1"
+  resolved "https://registry.yarnpkg.com/react-leaflet-heatmap-layer-v3/-/react-leaflet-heatmap-layer-v3-3.0.3-beta-1.tgz#4c4fa264a6fdef23d5ab4565be6553b72c5b47d5"
+  integrity sha512-oNv6ul6JHxMIuBXqaGc5P/VM/P6bpiUYAeg1CMCmyeYxWkHfl2YiT4m8VdaJC4TjSxVoi/Ry2ChRTFjF5UsPsg==
+  dependencies:
+    simpleheat "^0.4.0"
+
 react-leaflet@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-5.0.0.tgz#945d40bad13b69e8606278b19446b00bab57376a"
@@ -2207,6 +2214,11 @@ shuffle-array@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/shuffle-array/-/shuffle-array-1.0.1.tgz#c4ff3cfe74d16f93730592301b25e6577b12898b"
   integrity sha512-0TFRU8zVQaLatWKr0/czo19VyPNgb/a3sBc1GAjVfivfzEGaS54vueNgtAu/8/pW7EM/VF5fwq9zgpLdGyRmVw==
+
+simpleheat@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/simpleheat/-/simpleheat-0.4.0.tgz#e2de8d4548fcf1a6960b636bfa939d05bcd49a7b"
+  integrity sha512-tdg3I1NvzMdPKscWBrHbF0LBf+VWuBBazzGUPtFJjG5Q12VQX6gPY8jLy9hx5CbgAIVc5nfnePwJvAYK6z1rAA==
 
 source-map-js@^1.2.1:
   version "1.2.1"

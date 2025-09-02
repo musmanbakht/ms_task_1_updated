@@ -377,7 +377,7 @@ const PublicationsWordChart = ({
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white"
+      className="relative flex flex-col min-w-0 break-words w-full mb-3 shadow-lg rounded bg-white"
     >
       <div className="rounded-t mb-0 px-2 py-5 bg-transparent">
         <div className="flex flex-wrap items-center">

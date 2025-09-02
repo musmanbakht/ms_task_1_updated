@@ -26,7 +26,7 @@ const Patents = () => {
   console.log("RES", patentsData);
   return (
     <>
-      <div className="flex flex-wrap mt-2 bg-pink-600">
+      <div className="flex flex-wrap mt-2 ">
         <div className="w-full xl:w-4/12 mb-12 xl:mb-0 pl-4">
           {!loading && (
             <PatentsBarChart

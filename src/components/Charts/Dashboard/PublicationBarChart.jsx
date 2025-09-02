@@ -44,9 +44,12 @@ export default function PublicationBarChart({
             <h6 className="uppercase text-gray-500 mb-1 text-xs font-semibold">
               Overview
             </h6>
-            <h2 className="text-gray-800 text-xl font-semibold">
-              Publications by School
-            </h2>
+            <div className="flex items-baseline gap-4">
+              <h2 className="text-gray-800 text-xl font-semibold">
+                Publications by School
+              </h2>
+              <h2 className="text-gray-400 text-sm font-light">Since 2021</h2>
+            </div>
           </div>
         </div>
       </div>

@@ -386,7 +386,7 @@ const PublicationsWordChart = ({
               Overview
             </h6>
             <h2 className="text-gray-800 text-xl font-semibold">
-              Common Words In Publications
+              Common Words In Patents
             </h2>
           </div>
         </div>

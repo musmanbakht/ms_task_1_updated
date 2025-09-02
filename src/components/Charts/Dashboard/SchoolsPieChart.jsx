@@ -44,7 +44,7 @@ export default function SchoolsPieChart({ data, totalPublications }) {
               Overview
             </h6>
             <h2 className="text-gray-800 text-xl font-semibold">
-              Publications by School
+              Publication Percentage
             </h2>
           </div>
         </div>

@@ -3,15 +3,16 @@ import React from "react";
 const Navbar = () => {
   return (
     <>
-      <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      {/* <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700"> */}
+      <nav className="border-gray-200 bg-gray-50 dark:bg-white dark:border-gray-700">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-8 py-2">
           <a
             href="#"
             className="flex items-center space-x-2 rtl:space-x-reverse"
           >
             {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" /> */}
-            <img src="/WITS_LOGO.png" className="h-8" alt="WITS Logo" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <img src="/FEBE_LOGO.png" className="h-12" alt="WITS Logo" />
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-gray-800">
               FEBE R&I Portal
             </span>
           </a>
