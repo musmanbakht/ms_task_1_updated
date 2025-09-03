@@ -27,7 +27,7 @@ export default function PatentsBarChart({ allPatents, highlightDepartment }) {
   // Transform API → recharts data format
   const chartData = useMemo(() => {
     return allPatents.map((dept) => ({
-      name: dept.school.name,
+      name: dept.school.abbreviation,
       patentCount: dept.patentCount,
     }));
   }, [allPatents]);

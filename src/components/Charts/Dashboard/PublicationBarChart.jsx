@@ -88,7 +88,7 @@ export default function PublicationBarChart({
                     <Cell
                       key={dept.name}
                       // fill={colors[index % colors.length]}
-                      fill="#005f73"
+                      fill={isHighlighted ? "#296b1c" : "#005f73"}
                       // stroke={
                       //   isHighlighted ? colors[index % colors.length] : "none"
                       // }

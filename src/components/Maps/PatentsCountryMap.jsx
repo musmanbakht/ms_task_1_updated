@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import Legend from "./Legends/PublicationMapLegend";
 
 function PatentsCountryMap({ data }) {
   const [geoData, setGeoData] = useState(null);
@@ -86,6 +87,7 @@ function PatentsCountryMap({ data }) {
                 onEachFeature={onEachCountry}
               />
             )}
+            <Legend />
           </MapContainer>
         )}
       </div>

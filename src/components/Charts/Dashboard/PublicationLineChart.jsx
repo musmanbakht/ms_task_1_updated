@@ -87,7 +87,28 @@ export default function PublicationLineChart({ publicationCountPerMonth }) {
   ) {
     trendData = computeTrendline(visibleData, `${selectedDept}-published`);
   }
+  const getYAxisDomain = () => {
+    const allValues = [];
+    chartData.forEach((item) => {
+      departments.forEach((dept) => {
+        if (selectedDept === "all" || selectedDept === dept) {
+          if (lineType === "published" || lineType === "both") {
+            const val = item[`${dept}-published`];
+            if (val !== undefined) allValues.push(val);
+          }
+          if (lineType === "submission" || lineType === "both") {
+            const val = item[`${dept}-submission`];
+            if (val !== undefined) allValues.push(val);
+          }
+        }
+      });
+    });
 
+    if (allValues.length === 0) return [0, 10];
+    const min = Math.min(...allValues);
+    const max = Math.max(...allValues);
+    return [Math.max(0, min - 1), max + 1];
+  };
   return (
     <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
       {/* Header */}
@@ -170,6 +191,16 @@ export default function PublicationLineChart({ publicationCountPerMonth }) {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
+              <YAxis
+                domain={getYAxisDomain()}
+                label={{
+                  value: "Publications",
+                  angle: -90,
+                  position: "insideLeft",
+                  offset: 10,
+                }}
+                allowDecimals={false}
+              />
               <Tooltip />
               <Brush
                 dataKey="month"
