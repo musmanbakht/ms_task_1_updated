@@ -8,12 +8,13 @@ import PatentsCountryMap from "../components/Maps/PatentsCountryMap";
 const Patents = () => {
   const [patentsData, setPatentsData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedSchool, setSelectedSchool] = useState(null);
 
   useEffect(() => {
     const PatentStats = async () => {
       try {
         setLoading(true);
-        const response = await getPatentsStats();
+        const response = await getPatentsStats(selectedSchool);
         setPatentsData(response.data || null);
       } catch (err) {
         console.log("Failed to fetch Data:", err);
@@ -22,8 +23,10 @@ const Patents = () => {
       }
     };
     PatentStats();
-  }, []);
-  console.log("RES", patentsData);
+  }, [selectedSchool]);
+  const handleBarClick = (schoolId) => {
+    setSelectedSchool(schoolId);
+  };
   return (
     <>
       <div className="flex flex-wrap mt-2 ">
@@ -31,6 +34,7 @@ const Patents = () => {
           {!loading && (
             <PatentsBarChart
               allPatents={patentsData ? patentsData?.patentsBySchool : []}
+              onBarClick={handleBarClick}
             />
           )}
         </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // import * as Checkbox from "@radix-ui/react-checkbox";
 // import { Dialog } from "radix-ui";
 // import { Tooltip } from "radix-ui";
@@ -11,7 +11,7 @@ import { LuPencil } from "react-icons/lu";
 import { IoTrashOutline } from "react-icons/io5";
 import DeleteModal from "../Modals/DeleteModal";
 
-export default function PatentsTable() {
+const PatentsTable = React.memo(function PatentsTable() {
   const [patents, setPatents] = useState([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -326,4 +326,5 @@ export default function PatentsTable() {
       </div>
     </>
   );
-}
+});
+export default PatentsTable;

@@ -21,17 +21,21 @@ const colors = [
   "#ffb703", // yellow-orange
 ];
 
-export default function PatentsBarChart({ allPatents, highlightDepartment }) {
+export default function PatentsBarChart({
+  allPatents,
+  highlightDepartment,
+  onBarClick,
+}) {
   console.log("IN PUB BAR CHART", allPatents);
 
   // Transform API → recharts data format
   const chartData = useMemo(() => {
     return allPatents.map((dept) => ({
-      name: dept.school.abbreviation,
+      id: dept?.school?.id,
+      name: dept?.school?.abbreviation,
       patentCount: dept.patentCount,
     }));
   }, [allPatents]);
-  console.log("CHART DATA", chartData);
 
   return (
     <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
@@ -74,6 +78,11 @@ export default function PatentsBarChart({ allPatents, highlightDepartment }) {
                 animationBegin={300}
                 animationDuration={1200}
                 animationEasing="ease-out"
+                onClick={(data, index) => {
+                  if (onBarClick) {
+                    onBarClick(data.id);
+                  }
+                }}
               >
                 {chartData.map((dept, index) => {
                   const isHighlighted = dept.name === highlightDepartment;

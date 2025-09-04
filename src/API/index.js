@@ -56,9 +56,12 @@ function getAllPatents(q, page, limit) {
   );
 }
 
-function getPatentsStats() {
+function getPatentsStats(schoolId) {
+  const params = new URLSearchParams({
+    ...(schoolId && { schoolId }),
+  });
   return apiRequest(
-    axios.get(`${BASE_URL}/patent/stats`),
+    axios.get(`${BASE_URL}/patent/stats?${params}`),
     "Error fetching patent stats:"
   );
 }
