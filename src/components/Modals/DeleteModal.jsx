@@ -19,7 +19,7 @@ export default function DeleteModal({ isOpen, onClose, onDelete }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-0 bg-gray-500/40"
+      className="fixed inset-0 z-1000  flex items-center justify-center p-4 sm:p-0 bg-gray-500/40"
       role="dialog"
       aria-modal="true"
       aria-labelledby="dialog-title"
@@ -52,7 +52,7 @@ export default function DeleteModal({ isOpen, onClose, onDelete }) {
               </h3>
               <div className="mt-2">
                 <p className="text-sm text-gray-600">
-                  Are you sure you want to delete this patent? This action
+                  Are you sure you want to delete this Patent? This action
                   cannot be undone.
                 </p>
               </div>

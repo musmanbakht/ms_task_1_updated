@@ -18,10 +18,15 @@ function Legend({ min, max }) {
 
       const mid = Math.round((min + max) / 2);
 
-      div.innerHTML = `
-        <div><span style="background:#c59ca4ff; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> ${min} (low)</div>
-        <div><span style="background:#a48d9eff; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> ~${mid} (medium)</div>
-        <div><span style="background:#606d94ff; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> ${max} (high)</div>
+      // div.innerHTML = `
+      //   <div><span style="background:#c59ca4ff; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> ${min} (low)</div>
+      //   <div><span style="background:#a48d9eff; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> ~${mid} (medium)</div>
+      //   <div><span style="background:#606d94ff; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> ${max} (high)</div>
+      // `;
+      div.innerHTML = `  <div style="font-weight:600; margin-bottom:8px;">Publications</div>
+        <div><span style="background:#b80404; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> Low</div>
+        <div><span style="background:#b8ac04; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> Medium</div>
+        <div><span style="background:#019125; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> High</div>
       `;
       return div;
     };

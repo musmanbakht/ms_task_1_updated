@@ -53,11 +53,11 @@ function DashboardMap({ schools, onSchoolSelect, selectedYear, onYearChange }) {
     const mid = (min + max) / 2;
 
     if (count <= mid) {
-      return "#c59ca4ff"; // low
+      return "#b80404"; // low
     } else if (count < max) {
-      return "#a48d9eff"; // medium
+      return "#b8ac04"; // medium
     } else {
-      return "#606d94ff"; // high
+      return "#019125"; // high
     }
   }
 

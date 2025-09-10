@@ -24,7 +24,7 @@ const Patents = () => {
     };
     PatentStats();
   }, [selectedSchool]);
-  const handleBarClick = (schoolId) => {
+  const handleBarClick = (schoolId, schoolName) => {
     setSelectedSchool(schoolId);
   };
   return (
@@ -35,6 +35,7 @@ const Patents = () => {
             <PatentsBarChart
               allPatents={patentsData ? patentsData?.patentsBySchool : []}
               onBarClick={handleBarClick}
+              highlightDepartment={selectedSchool}
             />
           )}
         </div>

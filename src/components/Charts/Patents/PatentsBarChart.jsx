@@ -26,8 +26,6 @@ export default function PatentsBarChart({
   highlightDepartment,
   onBarClick,
 }) {
-  console.log("IN PUB BAR CHART", allPatents);
-
   // Transform API → recharts data format
   const chartData = useMemo(() => {
     return allPatents.map((dept) => ({
@@ -80,17 +78,18 @@ export default function PatentsBarChart({
                 animationEasing="ease-out"
                 onClick={(data, index) => {
                   if (onBarClick) {
-                    onBarClick(data.id);
+                    onBarClick(data.id, data.name);
                   }
                 }}
               >
                 {chartData.map((dept, index) => {
-                  const isHighlighted = dept.name === highlightDepartment;
+                  const isHighlighted = dept.id === highlightDepartment;
+                  console.log(">>>>>>>>>>>>>", dept.id, highlightDepartment);
                   return (
                     <Cell
                       key={dept.name}
-                      // fill={colors[index % colors.length]}
-                      fill="#005f73"
+                      fill={isHighlighted ? "#296b1c" : "#005f73"}
+                      // fill="#005f73"
                       // stroke={
                       //   isHighlighted ? colors[index % colors.length] : "none"
                       // }
