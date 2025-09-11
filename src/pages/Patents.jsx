@@ -4,7 +4,7 @@ import { useState } from "react";
 import PatentsBarChart from "../components/Charts/Patents/PatentsBarChart";
 import { getPatentsStats } from "../API";
 import PatentsCountryMap from "../components/Maps/PatentsCountryMap";
-
+import PatentsBySchoolSkeleton from "../components/Charts/Patents/PatentsBarChartSkeleton";
 const Patents = () => {
   const [patentsData, setPatentsData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,9 +29,11 @@ const Patents = () => {
   };
   return (
     <>
-      <div className="flex flex-wrap mt-2 ">
+      <div className="flex flex-wrap mt-2">
         <div className="w-full xl:w-4/12 mb-12 xl:mb-0 pl-4">
-          {!loading && (
+          {loading ? (
+            <PatentsBySchoolSkeleton />
+          ) : (
             <PatentsBarChart
               allPatents={patentsData ? patentsData?.patentsBySchool : []}
               onBarClick={handleBarClick}
@@ -40,14 +42,14 @@ const Patents = () => {
           )}
         </div>
         <div className="w-full xl:w-8/12 px-4">
-          {!loading && patentsData && (
-            // <PublicationBarChart
-            //   allDepartments={departmentData}
-            //   highlightDepartment={
-            //     highlightSchool || "School of Mining Engineering"
-            //   }
-            // />
-            <PatentsCountryMap data={patentsData?.patentsByCountry || []} />
+          {loading ? (
+            <div className="h-[455px] w-full flex items-center justify-center bg-gray-100 rounded shadow animate-pulse">
+              <span className="text-gray-500">Loading map...</span>
+            </div>
+          ) : (
+            patentsData && (
+              <PatentsCountryMap data={patentsData?.patentsByCountry || []} />
+            )
           )}
         </div>
       </div>
