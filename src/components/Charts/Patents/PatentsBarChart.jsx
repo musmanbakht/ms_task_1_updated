@@ -34,7 +34,11 @@ export default function PatentsBarChart({
       patentCount: dept.patentCount,
     }));
   }, [allPatents]);
-
+  const handleClear = () => {
+    if (onBarClick) {
+      onBarClick(null, null);
+    }
+  };
   return (
     <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
       <div className="rounded-t mb-0 px-2 py-5 bg-transparent">
@@ -43,9 +47,18 @@ export default function PatentsBarChart({
             <h6 className="uppercase text-gray-500 mb-1 text-xs font-semibold">
               Overview
             </h6>
-            <h2 className="text-gray-800 text-xl font-semibold">
-              Patents by School
-            </h2>
+            <div className="flex items-center">
+              <h2 className="text-gray-800 text-xl font-semibold">
+                Patents by School
+              </h2>
+              <button
+                className="ml-4 px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 text-sm font-medium"
+                onClick={handleClear}
+                type="button"
+              >
+                Clear
+              </button>
+            </div>
           </div>
         </div>
       </div>
