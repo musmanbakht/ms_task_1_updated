@@ -15,7 +15,7 @@ function Legend() {
       );
 
       div.innerHTML = `
-        <div><span style="background:#ccc; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> No data</div>
+        <div><span style="background:#ccc; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> No Patents</div>
         <div><span style="background:#e41a1c; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> &lt; 10 (low)</div>
         <div><span style="background:#ff7f00; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> 10-15 (medium)</div>
         <div><span style="background:#4daf4a; width:12px; height:12px; display:inline-block; margin-right:6px;"></span> &gt; 15 (high)</div>
